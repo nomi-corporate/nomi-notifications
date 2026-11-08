@@ -19,7 +19,7 @@ dotnet build Nomi.Notifications.sln
 dotnet run --project src/Nomi.Notifications.Api
 ```
 
-Liveness: `http://localhost:5103/health/live`. O endpoint confirma somente que o processo responde; conexões de banco e filas ainda serão implementadas.
+Liveness: `http://localhost:5103/health/live` confirma somente que o processo responde. Readiness em `/health/ready` retorna 200 quando o PostgreSQL está acessível e 503 sem configuração ou quando a conexão falha. Consulte [PostgreSQL e execução na AWS](docs/postgresql.md).
 
 ## Estrutura
 
@@ -28,7 +28,7 @@ Liveness: `http://localhost:5103/health/live`. O endpoint confirma somente que o
 - `src/Nomi.Notifications.Domain`: regras e modelos de domínio.
 - `src/Nomi.Notifications.Infrastructure`: adapters de persistência e provedores externos.
 
-Ainda não há endpoints acadêmicos, autenticação Cognito, banco configurado ou envio de notificações. A base executa sem credenciais AWS. As próximas entregas adicionam as funcionalidades da TEC-003.
+A conexão PostgreSQL, o contexto EF Core e a ferramenta de migrations estão preparados. Ainda não há entidades/tabelas de negócio, autenticação Cognito nem funcionalidades da TEC-003 implementadas. Sem conexão configurada, a API inicia com liveness saudável e readiness 503. Nenhuma migration é aplicada no startup.
 
 ## Contêiner
 
@@ -41,6 +41,7 @@ CI verifica compilação, publicação, liveness e construção da imagem. Após
 
 ## Documentação
 
+- [PostgreSQL e execução na AWS](docs/postgresql.md)
 - [Arquitetura](docs/architecture.md)
 - [Entrega](docs/delivery.md)
 - [Contribuição](CONTRIBUTING.md)

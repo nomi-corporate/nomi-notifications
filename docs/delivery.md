@@ -24,6 +24,7 @@ Workflow `Service CI`, jobs:
 - `Build and smoke check`: restaura, compila Release e publica a API, executa os projetos de teste disponíveis em `tests/**/*.csproj` e exige HTTP 200 com corpo `Healthy` em `/health/live`.
 - `Container build`: constrói a imagem, inicia um contêiner, valida o mesmo liveness. A exportação da imagem é opcional em execução manual.
 - `Workflow lint`: valida o próprio workflow.
+- `Database integration`: testa a imagem com PostgreSQL real, permissões, configuração ausente/inválida, indisponibilidade e recuperação. Usa recursos Docker efêmeros, sem acessar a AWS.
 - `Publish image to ECR`: apos todos os checks, publica a imagem validada no registry privado; nao implanta na EC2.
 
 Checks de proteção existentes mantêm seus nomes: `Build and smoke check` e `Container build`. Recomenda-se tornar `Workflow lint` obrigatório também; adicionar essa exigência é uma configuração separada do GitHub.
@@ -87,4 +88,4 @@ Se as variaveis estiverem ausentes ou divergentes, o job falha antes de autentic
 
 ### Implantacao ainda pendente
 
-Faltam configuracao de execucao/segredos por servico na EC2, HTTPS, autenticacao das APIs, readiness das dependencias, implantacao por digest e rollback. Assistant e Notifications ainda nao possuem persistencia integrada ao codigo. Publicar uma imagem nao conclui CD, TEC-007 ou HUs funcionais.
+Faltam configuracao de execucao/segredos por servico na EC2, HTTPS, autenticacao das APIs, readiness das dependencias, implantacao por digest e rollback. A base PostgreSQL e o readiness estão implementados; entidades, migrations e operações de negócio ainda dependem das HUs. Publicar uma imagem nao conclui CD, TEC-007 ou HUs funcionais.

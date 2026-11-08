@@ -8,3 +8,7 @@
 **/*.key
 
 artifacts/
+
+# Python verification helpers
+__pycache__/
+*.pyc
