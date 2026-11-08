@@ -37,7 +37,7 @@ docker build -t nomi-notifications:dev .
 docker run --rm -p 5103:8080 nomi-notifications:dev
 ```
 
-CI verifica compilação, publicação, liveness e construção da imagem. CD depende da infraestrutura e das permissões AWS.
+CI verifica compilação, publicação, liveness e construção da imagem. Após os checks da master, o workflow publica uma imagem validada no ECR usando OIDC e registra seu digest. Configure as três variáveis descritas em [Entrega](docs/delivery.md). A implantação na EC2 ainda não está implementada.
 
 ## Documentação
 
