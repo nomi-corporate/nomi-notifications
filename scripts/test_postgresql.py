@@ -173,6 +173,7 @@ ALTER DEFAULT PRIVILEGES FOR ROLE {MIGRATOR} IN SCHEMA {SERVICE}
             migration_env = os.environ.copy()
             migration_env["NOMI_" + SERVICE.upper() + "_MIGRATION_CONNECTION"] = (
                 f"Host=127.0.0.1;Port={pg_port};Database={DATABASE};Username={MIGRATOR};Password={migrator_password};Timeout=3")
+            command(["dotnet", "restore", f"Nomi.{TITLE}.sln"], timeout=180)
             command(["dotnet", "tool", "restore"], timeout=180)
             command(["dotnet", "ef", "dbcontext", "info", "--project", f"src/Nomi.{TITLE}.Infrastructure",
                      "--startup-project", f"src/Nomi.{TITLE}.Api"], env=migration_env, timeout=180)
