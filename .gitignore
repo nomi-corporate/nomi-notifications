@@ -21,3 +21,7 @@ Thumbs.db
 
 # Published binaries
 artifacts/
+
+# Python verification helpers
+__pycache__/
+*.pyc
